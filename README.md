@@ -173,7 +173,9 @@ its entire record to one exceptional year does not get past this point.
 
 Everything above measures a signal. Trading it requires turning a list of
 scores into actual position sizes, and that step has as much influence on the
-result as the signal does.
+result as the signal does. The examples below use the combined signal that the
+live portfolio trades, described in the next section, since sizing is what
+turns any ranking into a book.
 
 **The comparison is always across assets, never against history.** Each day the
 signal is computed for every asset in the universe, then converted to a rank
@@ -242,8 +244,8 @@ The structure is visible immediately. The two momentum signals correlate at
 other instead of joining it. Crowding, leverage and book depth form a second
 cluster at 0.74 to 0.95: three different measurements of the same underlying
 thing, which is how heavily positioned the market already is. Flow imbalance
-correlates below 0.16 with everything, which makes it the most valuable of the
-six despite having the lowest standalone Sharpe.
+correlates at most 0.16 with any of the others, which makes it the most
+valuable of the six despite having the lowest standalone Sharpe.
 
 So the portfolio that actually runs uses **three** of the six: the best
 momentum signal, one positioning signal from the middle cluster, and flow
