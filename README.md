@@ -48,12 +48,11 @@ particular points in the week? Each of those is a hypothesis about a mechanism,
 and the analysis exists to find out whether the mechanism leaves a trace in the
 data.
 
-In practice that means a sustained programme of exploratory analysis, and
-anything observable is fair game: price and volume behaviour, derivatives data
-such as funding rates and open interest, order book state and order flow,
-differences between exchanges, volatility regimes, supply and listing effects,
-and seasonality. Most avenues produce nothing. Their useful output is a
-documented reason not to revisit them.
+In practice that means a sustained programme of exploratory analysis, mainly on
+price and volume behaviour, derivatives data such as funding rates and open
+interest, and order book state and order flow, among other areas. Most avenues
+produce nothing. Their useful output is a documented reason not to revisit
+them.
 
 **The characteristic failure is a pattern that holds on average and falls apart
 once you cut it.** A signal is tested on three years at once, the quantiles
