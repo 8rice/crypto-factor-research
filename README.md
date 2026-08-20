@@ -35,6 +35,53 @@ first.
 
 ---
 
+## Before any of that: finding something to test
+
+The checks below are the last step. Most of the work is upstream, in the
+exploratory analysis that produces a candidate worth checking at all.
+
+That work is not a search for formulas. It is a search for **behaviour**: a
+recurring pattern in how a market reacts to something. Does a crowded position
+tend to unwind? Does leverage building up in one asset predict what happens
+next? Do assets behave differently in the days around a listing, or at
+particular points in the week? Each of those is a hypothesis about a mechanism,
+and the analysis exists to find out whether the mechanism leaves a trace in the
+data.
+
+In practice that means a lot of exploratory notebooks: around 150 of them so
+far, across price and volume behaviour, funding rates, open interest, order
+book depth, and the relationships between venues. Most produce nothing. The
+useful output of the majority is a documented reason not to look there again.
+
+**The characteristic failure is a pattern that holds on average and falls apart
+once you cut it.** A signal is tested on three years at once, the quantiles
+look clean, the Sharpe is respectable. Then the same result is split by year:
+
+![Pooled Sharpe against yearly Sharpe](docs/img/09_consistency.png)
+
+These two signals have essentially the same headline number, 1.56 against 1.53.
+Split by year they are not remotely the same thing. One works in every year of
+the sample. The other was carried by two strong years and has been **negative
+through 2026**, which means whatever it was measuring has stopped being true.
+Pooling the whole period hides that completely.
+
+When that happens there are two honest responses, and picking the wrong one is
+how people end up trading noise. Either the mechanism is understood well enough
+to explain why the effect changed, in which case the signal may be salvageable
+under a condition that captures the regime, or it is not understood, in which
+case the finding is a coincidence with good manners and the work goes back to
+the start. The second case is far more common.
+
+A few examples of what that looks like in practice, all documented rather than
+quietly dropped: a mean-reversion effect that turned out not to be recoverable
+from daily data at all, so the whole approach was abandoned rather than forced;
+a liquidity measure with a very strong statistical result that dissolved on
+inspection into a disguised bet on volatility, already covered elsewhere; and
+the book depth signal in the chart above, kept in the catalogue but out of the
+traded portfolio precisely because its recent behaviour is not understood.
+
+---
+
 ## The worked example
 
 A momentum signal: how far an asset has moved from its own recent trend,
@@ -109,6 +156,15 @@ cost on a liquid venue is a few basis points, so there is genuine room between
 what the signal earns and what it costs to run. Plenty of published strategies
 fail exactly here: a Sharpe of 1.5 that breaks even at 2 bps is not a strategy,
 it is a measurement of the fee schedule.
+
+### Step 5. Does it hold up in every year?
+
+The last check is the one from the opening section, applied to the candidate:
+split the result by year and see whether it survives. This signal returns
++1.51, +0.78, +1.79 and +0.62 across 2023 to 2026. It weakens in two of the
+four, which is honest for a momentum signal, but it stays positive throughout
+and never collapses the way the book depth measure did. A candidate that owes
+its entire record to one exceptional year does not get past this point.
 
 ---
 
@@ -271,11 +327,12 @@ larger part of the engineering.
   day rolls over.
 - **Scheduling.** An hourly tick runs jobs in dependency order and rebuilds
   whatever has gone stale, surviving laptop sleep and restarts.
-- **Monitoring.** A FastAPI backend and web frontend showing live state,
+- **Monitoring.** A FastAPI backend with a React frontend showing live state,
   historical reconciliation and configuration, so a broken upstream feed is
   visible immediately rather than three weeks later.
 
-**Stack:** Python, pandas, NumPy, SciPy, FastAPI, plotly, SQLite, parquet.
+**Stack:** Python, pandas, NumPy, SciPy, FastAPI, React, plotly, SQLite,
+parquet.
 
 ---
 
