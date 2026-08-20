@@ -2,8 +2,8 @@
 
 A quantitative research pipeline I built and run on my own time. It collects
 market data from several exchanges, looks for patterns that predict which
-assets outperform, and tests those patterns hard enough to throw most of them
-away.
+assets outperform, and subjects those patterns to enough scrutiny that most do
+not survive.
 
 This page walks through how that testing works, using one signal as the worked
 example. **The performance numbers at the end are the least interesting part.
@@ -48,10 +48,10 @@ particular points in the week? Each of those is a hypothesis about a mechanism,
 and the analysis exists to find out whether the mechanism leaves a trace in the
 data.
 
-In practice that means a lot of exploratory notebooks: around 150 of them so
-far, across price and volume behaviour, funding rates, open interest, order
-book depth, and the relationships between venues. Most produce nothing. The
-useful output of the majority is a documented reason not to look there again.
+In practice that means a sustained programme of exploratory analysis across
+price and volume behaviour, funding rates, open interest, order book depth, and
+the relationships between venues. Most avenues produce nothing. Their useful
+output is a documented reason not to revisit them.
 
 **The characteristic failure is a pattern that holds on average and falls apart
 once you cut it.** A signal is tested on three years at once, the quantiles
@@ -65,12 +65,12 @@ the sample. The other was carried by two strong years and has been **negative
 through 2026**, which means whatever it was measuring has stopped being true.
 Pooling the whole period hides that completely.
 
-When that happens there are two honest responses, and picking the wrong one is
-how people end up trading noise. Either the mechanism is understood well enough
-to explain why the effect changed, in which case the signal may be salvageable
-under a condition that captures the regime, or it is not understood, in which
-case the finding is a coincidence with good manners and the work goes back to
-the start. The second case is far more common.
+When that happens there are two defensible responses, and choosing the wrong
+one is how a coincidence ends up being traded. Either the mechanism is
+understood well enough to explain why the effect changed, in which case the
+signal may be salvageable under a condition that captures the regime, or it is
+not understood, in which case the result should be treated as a coincidence and
+the work returns to the start. The second case is far more common.
 
 A few examples of what that looks like in practice, all documented rather than
 quietly dropped: a mean-reversion effect that turned out not to be recoverable
@@ -142,7 +142,7 @@ All 28 are positive, from 0.82 to 1.81, and the surface varies smoothly:
 shorter trend windows beat longer ones, and volatility normalisation helps
 almost everywhere. **The plateau is the result, not the best cell.** A single
 bright square in an otherwise noisy grid is the signature of overfitting, and
-would have killed this signal here.
+would have disqualified this signal here.
 
 ### Step 4. Does it survive trading costs?
 
